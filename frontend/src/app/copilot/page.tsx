@@ -18,6 +18,7 @@ import {
   Terminal
 } from "lucide-react";
 import Link from "next/link";
+import FormattedMessage from "@/components/FormattedMessage";
 
 interface Message {
   id: string;
@@ -108,7 +109,7 @@ export default function CopilotPage() {
         subtitle="Grounded Natural Language Assistant with Controlled Tool Calling & ROP Diagnostics"
       />
 
-      <main className="p-8 flex-1 flex flex-col h-[calc(100vh-4rem)] max-w-5xl mx-auto w-full">
+      <main className="p-8 flex-1 flex flex-col h-[calc(100vh-4rem)] max-w-6xl mx-auto w-full">
         {/* Chat Message Window */}
         <div className="flex-1 overflow-y-auto space-y-6 pr-2 mb-4 scrollbar-thin">
           {messages.map((m) => (
@@ -123,10 +124,10 @@ export default function CopilotPage() {
               )}
 
               <div
-                className={`max-w-2xl rounded-2xl p-4 space-y-3 ${
+                className={`max-w-4xl rounded-2xl p-4 space-y-3 ${
                   m.role === "user"
-                    ? "bg-blue-600 text-white rounded-br-none shadow-md shadow-blue-600/20"
-                    : "bg-slate-900 border border-slate-800 text-slate-200 rounded-bl-none shadow-sm"
+                    ? "bg-blue-600 text-white rounded-br-none shadow-md shadow-blue-600/20 max-w-xl"
+                    : "bg-slate-900/90 dark:bg-slate-900 border border-slate-700/80 dark:border-slate-800 text-slate-200 rounded-bl-none shadow-sm flex-1"
                 }`}
               >
                 {/* Tool Execution Badges */}
@@ -145,10 +146,12 @@ export default function CopilotPage() {
                   </div>
                 )}
 
-                {/* Content Rendered */}
-                <div className="text-xs leading-relaxed whitespace-pre-wrap font-sans space-y-2">
-                  {m.content}
-                </div>
+                {/* Content Rendered with Rich Markdown & Tables */}
+                {m.role === "assistant" ? (
+                  <FormattedMessage content={m.content} />
+                ) : (
+                  <div className="text-xs leading-relaxed font-sans">{m.content}</div>
+                )}
 
                 {/* Suggested Action Pill */}
                 {m.suggested_action && (
