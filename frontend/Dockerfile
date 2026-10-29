@@ -21,7 +21,7 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=3001
 
 # Do not run as root
 RUN addgroup --system --gid 1001 nodejs
@@ -34,6 +34,6 @@ COPY --from=builder /app/package.json ./package.json
 
 USER nextjs
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["npm", "run", "start"]

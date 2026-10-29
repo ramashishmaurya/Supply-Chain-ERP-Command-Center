@@ -122,10 +122,10 @@ uvicorn app.main:app --host 127.0.0.1 --port 8000
 cd frontend
 npm install
 npm run build
-npm run start -p 3000
+npm run start
 ```
 
-Open **`http://localhost:3000`** in your browser.
+Open **`http://localhost:3001`** in your browser.
 
 ---
 
